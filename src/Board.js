@@ -138,12 +138,32 @@
     //
     // test if a specific major diagonal on this board contains a conflict
     hasMajorDiagonalConflictAt: function(majorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var count = 0;// add counter
+      for (var i = 0; i < this.rows().length; i++) { // loop over every row array
+        for (var k = 0; k < this.rows()[i].length; k++) {
+          if (this._getFirstRowColumnIndexForMajorDiagonalOn(i, k) === majorDiagonalColumnIndexAtFirstRow && this.rows()[i][k] === 1) {
+            count++; // count increase
+          }
+        } 
+      }
+      if (count > 1) { // if count > 1
+        return true; // then true
+      }
+    return false;
     },
 
     // test if any major diagonals on this board contain conflicts
     hasAnyMajorDiagonalConflicts: function() {
-      return false; // fixme
+      for (var i = 0; i < this.rows().length; i++) { // iterate over each row array
+        for (var k = 0; k < this.rows()[i].length; k++) {
+          if (this.rows()[i][k] === 1) { // if value = 1
+            if (this.hasMajorDiagonalConflictAt(this._getFirstRowColumnIndexForMajorDiagonalOn(i, k))) { // check for diagonal conflicts
+              return true; // if true
+            } // return true
+          }
+        }
+      }
+      return false; // return false
     },
 
 
