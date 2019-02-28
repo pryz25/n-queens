@@ -62,7 +62,7 @@
     },
 
 
-/*
+    /*
          _             _     _
      ___| |_ __ _ _ __| |_  | |__   ___ _ __ ___ _
     / __| __/ _` | '__| __| | '_ \ / _ \ '__/ _ (_)
@@ -118,7 +118,7 @@
       if (counter > 1) { // if count > 1
         return true; // then true
       }
-    return false;
+      return false;
     },
 
     // test if any columns on this board contain conflicts
@@ -149,7 +149,7 @@
       if (count > 1) { // if count > 1
         return true; // then true
       }
-    return false;
+      return false;
     },
 
     // test if any major diagonals on this board contain conflicts
@@ -173,12 +173,32 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var count = 0;
+      for (var i = 0; i < this.rows().length; i++) { // loop rows
+        for (var j = 0; j < this.rows()[i].length; j++) { // loop columns
+          if (this._getFirstRowColumnIndexForMinorDiagonalOn(i, j) === minorDiagonalColumnIndexAtFirstRow && this.rows()[i][j] === 1) { // check if firstrow index equals input
+            count++; // if true
+          }   // check value
+        }      // if true increase counter
+      } // check count
+      if (count > 1) { // return true
+        return true; // return false
+      }
+      return false;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      for (var i = 0; i < this.rows().length; i++) { // iterate through rows
+        for (var j = 0; j < this.rows()[i].length; j++) { // iterate through col
+          if (this.rows()[i][j] === 1) { // if element exists
+            if (this.hasMinorDiagonalConflictAt(this._getFirstRowColumnIndexForMinorDiagonalOn(i, j))) { // call At fxn on FRCI of element
+              return true; // return true
+            }
+          }
+        }
+      }
+      return false;// return false
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/

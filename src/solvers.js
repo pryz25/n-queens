@@ -16,8 +16,19 @@
 
 
 window.findNRooksSolution = function(n) {
-  var solution = undefined; //fixme
-
+  var solution = []; 
+  for (var i = 0; i < n; i++) { // build matrix of n col/rows
+    var row = [];
+    for (var j = 0; j < n; j++) {
+      row.push(0);
+    }
+    solution.push(row);
+  }
+  for (var k = 0; k < n; k++) { // for each row 
+    for (var l = 0; l < n; l++) { //for each col
+      solution[k][l] = 1; // place first rook
+    } // skip row & column
+  }// place second rook
   console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
   return solution;
 };
